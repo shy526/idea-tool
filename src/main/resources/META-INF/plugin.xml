@@ -14,6 +14,8 @@
     <extensions defaultExtensionNs="com.intellij">
         <!-- Add your extensions here -->
         <notificationGroup id="notification" displayType="BALLOON"/>
+        <toolWindow id="switchTool" secondary="false" anchor="bottom"
+                    factoryClass="com.github.shy526.gui.SwitchToolWindowFactory" />
     </extensions>
 
     <actions>
