@@ -88,6 +88,7 @@
               <inheritsPopupMenu value="true"/>
               <opaque value="true"/>
               <popupVisible value="false"/>
+              <toolTipText value="11000"/>
               <verifyInputWhenFocusTarget value="true"/>
               <visible value="true"/>
             </properties>

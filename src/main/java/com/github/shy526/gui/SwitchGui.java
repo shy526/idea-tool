@@ -4,6 +4,8 @@ import com.github.shy526.core.SwitchCommandEnum;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * @author Administrator
@@ -30,6 +32,12 @@ public class SwitchGui {
             switchComboBox.addItem(value);
         }
 
+        switchComboBox.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                switchButton.doClick();
+            }
+        });
     }
 
     public JPanel getContent() {
