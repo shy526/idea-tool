@@ -21,7 +21,10 @@ public class SwitchGui {
     public SwitchGui() {
         switchButton.addActionListener(e -> {
             SwitchCommandEnum selectedItem = ((SwitchCommandEnum) switchComboBox.getSelectedItem());
-            targetText.setText(selectedItem.execute(sourceText));
+            if (selectedItem != null) {
+                targetText.setText(selectedItem.execute(sourceText));
+            }
+
         });
         for (SwitchCommandEnum value : SwitchCommandEnum.values()) {
             switchComboBox.addItem(value);
@@ -33,18 +36,4 @@ public class SwitchGui {
         return manPanel;
     }
 
-    public static JFrame getFrame(SwitchGui switchGui) {
-        JFrame frame = new JFrame("MainForm");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setContentPane(switchGui.getContent());
-        frame.setSize(600, 500);
-        frame.setPreferredSize(new Dimension(600, 500));
-        frame.pack();
-        frame.setVisible(true);
-        return frame;
-    }
-
-    public static void main(String[] args) {
-        getFrame(new SwitchGui());
-    }
 }
