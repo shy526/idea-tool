@@ -1,0 +1,29 @@
+<idea-plugin>
+    <id>com.github.shy526.idea-tool</id>
+    <name>idea-tool</name>
+    <vendor email="sundada214@outlok.com" url="http://www.outlok.com.com">邮箱</vendor>
+
+    <description>idea 工具箱 自定义开发一些常用的工具整合到idea中 json格式化 名称大小写 和其他的一些常用操作</description>
+
+    <!-- please see https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html
+         on how to target different products -->
+    <depends>com.intellij.modules.platform</depends>
+
+    <resource-bundle>messages.plugin</resource-bundle>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <!-- Add your extensions here -->
+        <notificationGroup id="notification" displayType="BALLOON"/>
+    </extensions>
+
+    <actions>
+        <!-- Add your actions here -->
+        <group id="com.github.shy526.static.group"
+               popup="true" >
+            <add-to-group group-id="ToolsMenu" anchor="first"/>
+            <action id="com.github.shy526.action.TestAction" class="com.github.shy526.action.TestAction" text="Test"    description="Test">
+
+            </action>
+        </group>
+    </actions>
+</idea-plugin>
