@@ -1,6 +1,10 @@
 package com.github.shy526.core;
 
+import org.apache.commons.lang3.StringUtils;
+
 import javax.swing.*;
+import java.awt.*;
+import java.awt.datatransfer.StringSelection;
 import java.util.function.Function;
 
 /**
@@ -11,11 +15,18 @@ public enum SwitchCommandEnum {
     /**
      * 时间转换
      */
-    DATE_SWITCH("s/m<-->yyyy-MM-dd HH:mm:ss", new DateSwitchFunc());
+    DATE_SWITCH("dateSwitch", new DateSwitchCommand()),
+    /**
+     * json字符串美化
+     */
+    JSON_SWITCH("jsonFormat", new JsonSwitchCommand());
     /**
      * 名称
      */
     private final String name;
+    /**
+     * 具体的指令
+     */
     private final Function<JTextArea, String> command;
 
     SwitchCommandEnum(String name, Function<JTextArea, String> command) {
@@ -29,6 +40,10 @@ public enum SwitchCommandEnum {
     }
 
     public String execute(JTextArea sourceTextArea) {
-        return command.apply(sourceTextArea);
+        String apply = command.apply(sourceTextArea);
+        if (StringUtils.isNotEmpty(apply)) {
+            Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(apply), null);
+        }
+        return apply;
     }
 }

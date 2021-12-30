@@ -15,10 +15,10 @@ import java.util.regex.Pattern;
 /**
  * @author Administrator
  */
-public class DateSwitchFunc implements Function<JTextArea, String> {
+public class DateSwitchCommand implements Function<JTextArea, String> {
     private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-    private static final String PATTERN = "\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}";
-    private static final Pattern DATE_FORMAT_PATTERN = Pattern.compile(PATTERN);
+    private static final Pattern DATE_FORMAT_PATTERN = Pattern.compile("\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}");
+    private static final Pattern MS_PATTERN = Pattern.compile("\\d+");
 
     @Override
     public String apply(JTextArea sourceTextArea) {
@@ -26,7 +26,7 @@ public class DateSwitchFunc implements Function<JTextArea, String> {
         String sourceText = sourceTextArea.getText();
         if (StringUtils.isEmpty(sourceText)) {
             sourceText = System.currentTimeMillis() + "";
-            sourceTextArea.setText(sourceText);
+
         } else {
             sourceText = sourceText.trim();
             flag = DATE_FORMAT_PATTERN.matcher(sourceText).matches();
@@ -36,14 +36,23 @@ public class DateSwitchFunc implements Function<JTextArea, String> {
             try {
                 result = DATE_FORMAT.parse(sourceText).getTime() + "";
             } catch (ParseException e) {
-                NotificationSend.error(e.getMessage(), 2000L);
+                NotificationSend.error(e.getMessage(), 1000);
             }
         } else {
+            if (!MS_PATTERN.matcher(sourceText).matches()) {
+                NotificationSend.error("input error", 1000);
+                return "";
+            }
+            int sub = 13 - sourceText.length();
+            if (sub < 0) {
+                NotificationSend.error("input error", 1000);
+                return "";
+            }
+            //不满13位
+            sourceText += "0".repeat(13 - sourceText.length());
+            sourceTextArea.setText(sourceText);
             result = DATE_FORMAT.format(new Date(Long.parseLong(sourceText)));
         }
-
-        Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(result), null);
         return result;
     }
-
 }

@@ -27,19 +27,19 @@ public class NotificationSend {
         send(content, null, NotificationType.WARNING);
     }
 
-    public static void error(String content, Long sleep) {
+    public static void error(String content, Integer sleep) {
         send(content, sleep, NotificationType.ERROR);
     }
 
-    public static void info(String content, Long sleep) {
+    public static void info(String content, Integer sleep) {
         send(content, sleep, NotificationType.INFORMATION);
     }
 
-    public static void warn(String content, Long sleep) {
+    public static void warn(String content, Integer sleep) {
         send(content, sleep, NotificationType.WARNING);
     }
 
-    public static void send(String content, Long sleep, NotificationType type) {
+    public static void send(String content, Integer sleep, NotificationType type) {
         Notification notification = NOTIFICATION_GROUP.createNotification(content, type);
         Notifications.Bus.notify(notification);
         if (sleep != null) {
@@ -49,7 +49,7 @@ public class NotificationSend {
     }
 
 
-    private static void sleep(long sleep, Runnable runnable) {
+    private static void sleep(Integer sleep, Runnable runnable) {
         new Thread(() -> {
             try {
                 TimeUnit.MILLISECONDS.sleep(sleep);
