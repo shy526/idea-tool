@@ -1,14 +1,16 @@
 package com.github.shy526.gui;
 
 import com.github.shy526.core.SwitchCommandEnum;
+import com.intellij.json.json5.Json5FileType;
+import com.intellij.openapi.editor.EditorFactory;
 import com.intellij.openapi.ui.ComboBox;
+import com.intellij.openapi.util.text.StringUtil;
 import com.intellij.ui.DocumentAdapter;
+import com.intellij.ui.EditorTextField;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 /**
  * @author Administrator
@@ -25,6 +27,7 @@ public class SwitchGui {
     private JLabel sourceLabel;
     private JLabel targetLabel;
     private ComboBox<SwitchCommandEnum> switchComboBox;
+    private JScrollPane scrollPane1;
 
     public SwitchGui() {
         init();
@@ -37,13 +40,13 @@ public class SwitchGui {
         switchComboBox.addActionListener(e -> {
             switchButton.doClick();
         });
-        sourceText.getDocument().addDocumentListener(new DocumentAdapter() {
+      sourceText.getDocument().addDocumentListener(new DocumentAdapter() {
             @Override
             protected void textChanged(@NotNull DocumentEvent e) {
                 sourceLabel.setText(String.format(LABEL_FORMAT, sourceText.getText().length()));
             }
         });
-        targetText.getDocument().addDocumentListener(new DocumentAdapter() {
+       targetText.getDocument().addDocumentListener(new DocumentAdapter() {
             @Override
             protected void textChanged(@NotNull DocumentEvent e) {
                 targetLabel.setText(String.format(LABEL_FORMAT, targetText.getText().length()));
@@ -64,5 +67,7 @@ public class SwitchGui {
         return manPanel;
     }
 
-
+    private void createUIComponents() {
+        // TODO: place custom component creation code here
+    }
 }
